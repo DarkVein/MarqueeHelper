@@ -1,0 +1,125 @@
+<html>
+<head>
+<title>Marquee Helper</title>
+</head>
+<link rel="stylesheet" type="text/css" href="style.css">
+<body>
+<div id="let"></div>
+<div class="c">
+<p class="l" scroll="t">Marquee <p class="l" scroll="t" style="color:#61FFFF;">Helper</p></p>
+<table>
+<tr>
+<td><input type="text" id="To" placeholder="Enter the new message <TO>"></input></td>
+<td><input type="text" id="From" placeholder="Enter the old message <FROM>"></input></td>
+<td><button style="height:30px;width:100px;font-size:20px;" onclick="f()">Result</button>
+</tr>
+</table>
+
+<div class="r">
+<p class="l">Assorted <p class="l" style="color:#61FFFF;">Helpers</p></p>
+<br /><br />
+<table>
+<td><a href="mhelper.html">
+<br /><br /><br />
+Marquee Helper
+</a></td>
+<td><a href="ihelper.html">
+<br /><br /><br />
+Inventory Helper
+</a></td>
+<td><a href="where.html">
+<br /><br /><br />
+Lunch Helper
+</a></td>
+<td><a href="index.html">
+<br /><br /><br />
+Assorted Helpers
+</a></td>
+</table>
+</div>
+</div>
+</html>
+<script src="https://ajax.googleaapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+<script>
+var from = document.getElementById("From");
+var to = document.getElementById("To");
+var finalform = [];
+var fmap = new Map();
+
+function f() {
+var li = document.createElement("li");
+li.style.listStyle="none";
+li.style.display = "inline";
+document.getElementById("let").append(li);
+//remove spaces
+var toval = to.value.toString().replace(" ","").toUpperCase();
+var fromval = from.value.toString().replace(" ","").toUpperCase();
+console.log(sortAlphabet(toval));
+console.log(sortAlphabet(fromval));
+display(sortAlphabet(toval),sortAlphabet(fromval));
+finalOutput(li);
+}
+
+function sortAlphabet(str) {
+return [...str].sort((a,b) => a.localeCompare(b));
+}
+
+function has(array1,array2,letter) {
+if(array1.includes(letter) && array2.includes(letter)) {
+return true;
+}
+return false;
+}
+
+function display(array1,array2) {
+var array3 = array1.concat(array2);
+for(i=0;i<36;i++) {
+var letter = i.toString(36).toUpperCase();
+if(has(array1,array2,letter)) {
+var index1 = array1.indexOf(letter);
+var index2 = array2.indexOf(letter);
+array1.splice(index1,1);
+array2.splice(index2,1);
+array3.forEach(function (e) {
+if(has(array1,array2,letter)) {
+index1 = array1.indexOf(letter), index2 = array2.indexOf(letter);
+array1.splice(index1,1);
+array2.splice(index2,1);
+} else {
+console.log("does not contain " +letter+" anymore.");
+}
+});
+}
+}
+finalform=array1.concat(array2);
+}
+
+function finalOutput(li) {
+finalform.forEach(function(item,index,array) {
+if(fmap.has(item)) {
+//Do NOTHING at all
+}
+var str = finalform.join('');
+fmap.set(item,search(item,str));
+});
+finalDisplay(li);
+}
+
+function finalDisplay(li) {
+for(const [key, value] of fmap) {
+li.innerHTML = li.innerHTML + "Need : " + `${value}` +" | " + `${key}`+"<br />";
+}
+}
+
+function search(searchfor, str) {
+var stringsearch= searchfor,str;
+for(var i=count=0; i<str.length; count+=+(stringsearch===str[i++]));
+return count;
+}
+
+$(document).ready(function() {
+	$("p[scroll]").click(function() {
+	$("html, body").animate({scrollTop: 1000}, 600);
+	});
+});
+</script>

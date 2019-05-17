@@ -1,0 +1,42 @@
+br,body {
+background-color: #f2f2f2;
+-webkit-user-select: none;
+-webkit-user-drag: none;
+}
+
+input {
+width: 300px;
+height: 30px;
+text-indent: 5px;
+outline: none;
+}
+
+input:focus {
+box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+border: 1px solid #BFBFBF;
+}
+
+input::placeholder {
+	color: #333;
+}
+
+button {
+	cursor: pointer;
+	height: 50px;
+	width: 80px;
+	color: #BF4848;
+	font-size: 30px;
+}
+
+button:hover {
+background-color: #AAAAAA;
+border: 1px solid #BFBFBF;
+}
+
+
+.c {
+position: absolute;
+top 0px;
+left: 50%;
+transform: translate(-50%,15px);
+}
